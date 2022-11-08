@@ -1,0 +1,11 @@
+<resources>
+    <dimen name="fab_end_margin">30dp</dimen>
+    <dimen name="fab_1_ejection">470dp</dimen>
+    <dimen name="fab_2_ejection">400dp</dimen>
+    <dimen name="fab_3_ejection">330dp</dimen>
+    <dimen name="fab_4_ejection">260dp</dimen>
+    <dimen name="fab_5_ejection">190dp</dimen>
+    <dimen name="fab_6_ejection">120dp</dimen>
+    <dimen name="fab_7_ejection">50dp</dimen>
+    <dimen name="fab_del">50dp</dimen>
+</resources>

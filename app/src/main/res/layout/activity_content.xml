@@ -29,15 +29,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/scrollView3"
                     android:background="@color/daynight_backColor">
-                <ImageButton
-                        android:background="@color/daynight_backColor"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitXY"
-                        app:srcCompat="@drawable/post1"
-                        app:layout_constraintDimensionRatio="H,9:18"
-                        android:id="@+id/content_image"/>
+
             </ScrollView>
             <LinearLayout
                     android:id="@+id/content_chat_layout"

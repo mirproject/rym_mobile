@@ -12,7 +12,7 @@ class SplashActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         setTheme(R.style.Theme_Mirmobile)
         super.onCreate(savedInstanceState)
-        startActivity(Intent(this@SplashActivity, ContentActivity::class.java))
+        startActivity(Intent(this@SplashActivity, CategoryActivity::class.java))
         overridePendingTransition(0, 0)
      }
 }

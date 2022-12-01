@@ -10,5 +10,14 @@
 
     <string name="label_comment">Сообщение</string>
 
+    <string name="label_categories">Категории</string>
+    <string name="label_category_relax">Отдых и туризм</string>
+    <string name="label_category_business">Бизнес</string>
+    <string name="label_category_culture">Культура</string>
+    <string name="label_category_science">Наука</string>
+    <string name="label_category_news">Новости</string>
+    <string name="label_category_architecture">Архитектура</string>
+    <string name="label_category_cars">Авто</string>
+
 </resources>
 

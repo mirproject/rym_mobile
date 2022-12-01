@@ -1,9 +1,7 @@
 package ru.rym.mobile.utils
 
-import android.app.Activity
 import android.content.ContentResolver
 import android.content.Context
-import android.content.Intent
 import android.content.res.Resources
 import android.graphics.*
 import android.graphics.drawable.Drawable
@@ -19,17 +17,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.core.view.updateLayoutParams
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.rym.mobile.R
-import ru.rym.mobile.activities.ContentActivity
 import ru.rym.mobile.config.ConfigApp
-import ru.rym.mobile.entities.ContentTypeEnum
-import ru.rym.mobile.entities.dto.SelectedContentDTO
-import ru.rym.mobile.entities.dto.UserEntityDTO
-import ru.rym.mobile.entities.dto.UsersDTO
-import ru.rym.mobile.entities.response.ChatMessageApiModel
-import ru.rym.mobile.entities.response.PublicationApiResponse
-import ru.rym.mobile.services.ContentService
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -143,26 +132,6 @@ object ImageUtil {
         return imageFileName.absolutePath
     }
 
-    fun getImageBaseBitmap(
-        contentService: ContentService,
-        fileUUID: String,
-        imageSize: Int): Bitmap? {
-
-        val imageByteArray = try {
-            contentService.getFileContent(UserEntityDTO.accessToken!!, fileUUID)
-        } catch (e: Exception) {
-            Log.e("Error", e.message!!)
-            e.printStackTrace()
-            return null
-        }
-
-        val original = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.size)
-        Log.i(
-            "Content loaded: ",
-            "FileUUID = ${fileUUID}; Size = ${imageByteArray.size}; Width = ${original.width}; Height = ${original.height}"
-        )
-        return original.fill(imageSize)
-    }
 
     fun clearTableLayout(mapTableLayout: TableLayout) {
         val count: Int = mapTableLayout.childCount
@@ -416,77 +385,7 @@ object ImageUtil {
         return textMessage
     }
 
-    fun addImageToTableRow(
-        tableRow: TableRow,
-        imageBitmap: Bitmap,
-        imageName: String,
-        imageId: Int,
-        context: Context,
-        activity: Activity,
-        imageHeight: Int,
-        publication: PublicationApiResponse
-    ) {
-
-        val contentImageBtn = ImageButton(context)
-        contentImageBtn.setImageBitmap(imageBitmap)
-        val layoutParams = TableRow.LayoutParams(
-            TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,1F
-        )
-        layoutParams.setMargins(5,5,5,5)
-        contentImageBtn.layoutParams = layoutParams
-        contentImageBtn.updateLayoutParams {
-            width = 0.toPx(context)
-            height = imageHeight.toPx(context)
-        }
-        contentImageBtn.setOnClickListener(
-            View.OnClickListener {
-                SelectedContentDTO.fileName = imageName
-                SelectedContentDTO.imageBitmap = imageBitmap
-                activity.startActivity(Intent(context, ContentActivity::class.java))
-                SelectedContentDTO.publication = publication
-            }
-        )
-        contentImageBtn.setBackgroundColor(Color.BLACK)
-        contentImageBtn.tag = imageName
-        contentImageBtn.id = imageId
-        tableRow.addView(contentImageBtn)
-    }
-
-    fun addMessageToPanel(
-        chatLinearLayout: LinearLayout,
-        chatMessageScroll: ScrollView,
-        chatMessages: MutableList<ChatMessageApiModel>,
-        contentActivity: Activity
-    ) {
-
-        if (UsersDTO.users.isEmpty()) {
-            return
-        }
-
-        if (chatMessages.isEmpty()) {
-            return
-        }
-        chatLinearLayout.removeAllViews()
-        for (message in chatMessages) {
-
-            val messageRow = createNewHorizontalLinearLayout(contentActivity)
-
-            val chatUser = UsersDTO.users.find { it.userUUID == message.messageUserUUID } ?: continue
-
-            addMessageRow(
-                messageRow = messageRow,
-                imageUserBitmap = chatUser.imageBitmap,
-                userName = chatUser.userName,
-                context = contentActivity,
-                messagePayload = message.messagePayload,
-                messageCreateTime = message.createdTime,
-            )
-            chatLinearLayout.addView(messageRow)
-        }
-        chatMessageScroll.post(Runnable { chatMessageScroll.fullScroll(View.FOCUS_DOWN) })
-    }
-
-    private fun addMessageRow(
+      private fun addMessageRow(
         messageRow: LinearLayout,
         imageUserBitmap: Bitmap?,
         userName: String,

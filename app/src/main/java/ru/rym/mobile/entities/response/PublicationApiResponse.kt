@@ -22,5 +22,4 @@ data class PublicationApiResponse (
     var imageBitmapBase: Bitmap?,
     var imageBitmapUser: Bitmap?,
 
-    var chatMessages: MutableList<ChatMessageApiModel> = mutableListOf()
 )
